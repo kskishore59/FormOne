@@ -8,9 +8,8 @@ export interface UserDetails {
         gender: string,
         annualIncome: number,
         panNumber: string,
-        doorNo: number, street:string, zipCode: number,
-        phoneNumber: number,
-        
+        doorNo: number | undefined, street:string, zipCode: number | undefined,
+        phoneNumber: string,
     }
 }
 
@@ -22,7 +21,7 @@ export interface Step1 {
 export interface Step2 {
     panNumber : string,
     annualIncome: number,
-    phoneNumber: number,
+    phoneNumber: string,
     dob: string,
     gender:string,
 }
@@ -39,11 +38,11 @@ export const initialState = {
         firstName: '',
         lastName: '',
         dob: '',
-        gender: '',
+        gender: 'male',
         annualIncome: 0,
         panNumber: '',
-        doorNo: 0, street:'', zipCode: 0,
-        phoneNumber: 0,
+        doorNo: undefined, street:'', zipCode: undefined,
+        phoneNumber: '',
         
     }
 }
@@ -54,18 +53,15 @@ export const rootSlice = createSlice({
     initialState,
     reducers: {
       updateDetails: (state:UserDetails, action: PayloadAction<Step1 | Step2 | Step3 >) => {
-        state =  {
-            ...state.yourDetails,
-            yourDetails: {
+        state.yourDetails =  {
               ...state.yourDetails,
               ...action.payload,
             }
-          }
-      },
+          },
       reset: (state: UserDetails) => {
-        state = initialState
+        state.yourDetails = initialState.yourDetails
       },
-    },
+    }
   })
 
   export const { updateDetails, reset } = rootSlice.actions

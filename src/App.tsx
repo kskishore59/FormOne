@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes  } from 'react-router-dom';
-import AuthRoute from './components/AuthRoute';
+import AuthRoute from './components/authRoute';
 import routes from './config/routes';
 import { auth } from './config/firebase';
 import logging from './config/logging';
@@ -9,9 +9,11 @@ import { Box, CircularProgress } from '@mui/material';
 import RegisterPage from './pages/auth/Register';
 import ForgotPasswordPage from './pages/auth/forgot';
 import HomePage from './pages/StepOne';
-import PrivateRoute from './components/AuthRoute';
+import PrivateRoute from './components/authRoute';
 import StepTwoPage from './pages/StepTwo';
 import StepThree from './pages/StepThree';
+import LogoutPage from './pages/auth/Logout';
+import ResultPage from './pages/Result';
 
 
 export interface IApplicationProps { }
@@ -45,6 +47,8 @@ const App: React.FunctionComponent<IApplicationProps> = props => {
               <Route path="/"  element={<PrivateRoute component={HomePage} />} />
               <Route path="/step2" element={<PrivateRoute component={StepTwoPage}/>} />
               <Route path="/step3" element={<PrivateRoute component={StepThree}/>} />
+              <Route path="/result" element={<PrivateRoute component={ResultPage} />} />
+              <Route path="/logout" element={<PrivateRoute component={LogoutPage} />} />
             </Routes>
             </BrowserRouter>
         </div>

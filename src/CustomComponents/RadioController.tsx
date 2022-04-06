@@ -1,4 +1,4 @@
-import { FormControlLabel, RadioGroup, Radio } from '@mui/material';
+import { FormControlLabel, RadioGroup, Radio, FormControl, FormLabel } from '@mui/material';
 import { FC } from 'react';
 import { Controller } from 'react-hook-form';
 
@@ -39,15 +39,21 @@ export  const CustomRadioCom: FC<TextFieldProps> = ({
                     name={name}
                     defaultValue=''
                     control={control}
-                    render={({field: {onChange}, fieldState}) => (<RadioGroup
+                    render={({field: {onChange}, fieldState}) => (
+                    <FormControl>
+                      <FormLabel id="demo-radio-buttons-group-label">Gender</FormLabel>
+                      <RadioGroup
                         onChange={onChange}
                         aria-labelledby="demo-radio-buttons-group-label"
                         id='gender'
                         row
+                        defaultValue={'male'}
                       >
                         <FormControlLabel   value="female" control={<Radio />} label="Female" />
                         <FormControlLabel    value="male" control={<Radio />} label="Male" />
                         <FormControlLabel   value="other" control={<Radio />} label="Other" />
-                  </RadioGroup>)}
+                  </RadioGroup>
+                    </FormControl>
+                    )}
             />)
 }

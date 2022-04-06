@@ -13,30 +13,25 @@ import { useDispatch, useSelector } from 'react-redux';
 //import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
-import '../components/Styles/styles.css';
+import '../components/styles/styles.css';
 import { auth } from '../config/firebase';
-import { ControllerTexFieldComp } from '../CustomComponents/ControllerComp';
+import { ControllerTexFieldComp } from '../customComponents/TextFieldController';
 import IPageProps from '../interfaces/page';
-import { updateDetails } from '../Store/rootSlice';
-import { AppDispatch, RootState } from '../Store/store';
-//import { Step1, UserDetails } from '../Store/rootSlice';
-//import { AppDispatch } from '../Store/store';
-import { Stepper } from './Stepper';
+import { updateDetails, Step1 } from '../store/rootSlice';
+import { AppDispatch, RootState } from '../store/store';
 
-type Step1 = {
-  firstName: string,
-  lastName: string
-}
+import { Stepper } from './Stepper';
+import Navbar from './Navbar';
 
 const HomePage: React.FunctionComponent<IPageProps> = props => {
     const dispatch: AppDispatch = useDispatch();
-    const details = useSelector((state: RootState) => state.form.yourDetails)
+    const details = useSelector((state: RootState) => state.userForm.yourDetails)
     const {firstName, lastName} = details;
     const validationSchema = Yup.object().shape({
       firstName: Yup.string()
-          .required('This field is required'),
+          .required('First Name is required'),
       lastName: Yup.string()
-          .required('This field is required'),
+          .required('Last Name is required'),
   });
 
     const { handleSubmit, control } =useForm({
@@ -50,25 +45,11 @@ const HomePage: React.FunctionComponent<IPageProps> = props => {
         console.log(data)
         dispatch(updateDetails(data))
         console.log(details)
+        history('/step2')
     };
     return (
              <Box sx={{ flexGrow: 1 }}>     
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            <img style={{height: '40px', width: '50px'}} src="https://res.cloudinary.com/joinditto-in/image/upload/v1647523910/ditto_log_iqxxha.png" alt='logo' />
-          </Typography>
-          <Button style={{color: 'white'}}><Link to="/logout" style={{color: 'white', textDecoration: 'none', transform: 'scale(1.0)'}}>LOGOUT</Link></Button>
-        </Toolbar>
-      </AppBar>
+            <Navbar />
       <Container style={{minHeight: '100vh', backgroundColor: 'white', textAlign: 'center'}}>
             <p>
                 Welcome Home {auth.currentUser?.email}<br />
@@ -79,10 +60,12 @@ const HomePage: React.FunctionComponent<IPageProps> = props => {
       <br/>
     <Box  sx={{ mt: 1 }}>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                  <ControllerTexFieldComp name="firstName" type="text" label="First Name"
+                  <ControllerTexFieldComp name="firstName" value={firstName} autoFocus={true} type="text" label="First Name"
                       control={control}  />
-                  <ControllerTexFieldComp name="lastName" type="text" label="Last Name"
+                  <ControllerTexFieldComp name="lastName" value={lastName} type="text" label="Last Name"
                       control={control}  />
+                      <br/>
+                      <br/>
                 <Button
                   type="submit"
                   fullWidth

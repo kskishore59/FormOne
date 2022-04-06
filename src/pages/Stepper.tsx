@@ -4,17 +4,24 @@ type Props = {}
 
 export const Stepper = (props: Props) => {
     const location = useLocation()
+
+    
+
   return (
-    <nav className="container d-flex">
+    <nav className="container stepper-nav">
     <ul className="steps d-flex w-100 justify-content-between">
-      <li className={location.pathname === "/" ? "active" : ""}>
-        <Link to="/">Step 1</Link>
+      
+      <li className={location.pathname === "/" ? "active" : "step"}>
+        <Link to="/" className="link-text">1</Link>
+        
       </li>
-      <li className={location.pathname === "/step2" ? "active" : ""}>
-        <Link to="/step2">Step 2</Link>
+      <hr/>
+      <li className={location.pathname === "/step2" ? "active" : "step"}>
+        <Link to="/step2">2</Link>
       </li>
-      <li className={location.pathname === "/step3" ? "active" : ""}>
-        <Link to="/step3">Step 3</Link>
+      <hr/>
+      <li className={location.pathname === "/step3" ? "active" : "step"}>
+        <Link to="/step3">3</Link>
       </li>
     </ul>
   </nav>
@@ -22,3 +29,4 @@ export const Stepper = (props: Props) => {
 }
 
 export { };
+

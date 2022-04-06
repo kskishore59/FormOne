@@ -1,5 +1,5 @@
+import { ChangeEvent, FC } from 'react';
 import { Slider } from '@material-ui/core';
-import { ChangeEvent, FC, useState } from 'react';
 import { Controller } from 'react-hook-form';
 
 
@@ -48,7 +48,7 @@ export  const CustomSlider: FC<TextFieldProps> = ({
                         onChange={(event: ChangeEvent<{}>, newValue: number | number[]) => {
                             onChange(newValue)
                         }}
-                        min={10}
+                        min={0}
                         max={50}
                       />)}
             />)

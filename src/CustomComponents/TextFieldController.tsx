@@ -19,6 +19,7 @@ export interface TextFieldProps {
     type: string;
     control: any;
     maxLength?: number;
+    autoFocus?: boolean;
     onBlur?: () => void;
     onChange?: (value: string | number) => void;
 }
@@ -31,6 +32,7 @@ export  const ControllerTexFieldComp: FC<TextFieldProps> = ({
     control,
     type,
     value,
+    autoFocus,
     onBlur,
     onChange
   }) => {
@@ -38,18 +40,16 @@ export  const ControllerTexFieldComp: FC<TextFieldProps> = ({
   return (
             <Controller
                     name={name}
-                    defaultValue=''
+                    defaultValue={value}
                     control={control}
                     render={({field, fieldState}) => (<TextField
                     {...field}                   
                     margin="normal"
                     type={type}
-                    required
-                    fullWidth 
-                    value={value}               
+                    autoFocus={autoFocus}
+                    fullWidth                
                     label={label}               
                     autoComplete={type}
-                    autoFocus
                     error={fieldState.error ? true : false}
                     helperText={
                       fieldState.error ? fieldState.error.message : ''

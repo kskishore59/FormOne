@@ -1,104 +1,89 @@
-import MenuIcon from '@mui/icons-material/Menu';
-import { Box, FormLabel } from '@mui/material';
-import AppBar from '@mui/material/AppBar';
+import React, { useEffect } from 'react';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
-import IconButton from '@mui/material/IconButton';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import React from 'react';
+import { Box, FormControl, FormLabel } from '@mui/material';
+
 import { SubmitHandler, useForm } from 'react-hook-form';
-//import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import '../components/Styles/styles.css';
+import '../components/styles/styles.css';
 import { auth } from '../config/firebase';
-import { ControllerTexFieldComp } from '../CustomComponents/ControllerComp';
-import { CustomDateCom } from '../CustomComponents/CustomDateCom';
-import { CustomRadioCom } from '../CustomComponents/CustomRadioCom';
-import { CustomSlider } from '../CustomComponents/CustomSlider';
+import { ControllerTexFieldComp } from '../customComponents/TextFieldController';
+import { CustomDateCom } from '../customComponents/DateFieldController';
+import { CustomRadioCom } from '../customComponents/RadioController';
+import { CustomSlider } from '../customComponents/CustomSlider';
 import IPageProps from '../interfaces/page';
-//import { Step2, UserDetails } from '../Store/rootSlice';
-//import { AppDispatch } from '../Store/store';
+import { Step2, updateDetails, UserDetails } from '../store/rootSlice';
+import { AppDispatch, RootState } from '../store/store';
 import { Stepper } from './Stepper';
+import * as Yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+import Navbar from './Navbar';
 
 
 
 const StepTwoPage: React.FunctionComponent<IPageProps> = props => {
-    //const dispatch: AppDispatch = useDispatch();
+    const dispatch: AppDispatch = useDispatch();
     const [value, setValue] = React.useState<number>(10);
-    //const details = useSelector<UserDetails, UserDetails['yourDetails']>((state) => state.yourDetails)
-    //const {firstName, lastName,dob, gender, panNumber, annualIncome} = details
-    const { handleSubmit, formState: { errors },  register, control } = useForm<any>({
-        defaultValues: {dob:'', gender:'male', panNumber:''}
+    const details = useSelector((state: RootState) => state.userForm.yourDetails)
+    const {firstName, lastName,dob, gender, phoneNumber, annualIncome} = details
+    const validationSchema = Yup.object().shape({
+          gender: Yup.string()
+            .required('Please Select Gender'),
+          annualIncome: Yup.number()
+            .required('Please Select Annual Income'),
+          dob: Yup.string().required('Please select Date of birth'),
+          phoneNumber: Yup.string().min(10, 'Please Enter Valid Number').max(10)
+            .required('Please enter your phone number')
+  });
+  
+    const { handleSubmit,  control } = useForm<Step2>({
+        resolver: yupResolver(validationSchema),
+        defaultValues: {dob, gender, phoneNumber, annualIncome}
       });
       const  push  = useNavigate();
     
-      /*useEffect(() => {
+      useEffect(() => {
         if (!firstName || !lastName){
-          push('./')
+          push('/')
         }
-      })*/
+      })
 
 
-
-      const handleChange = (event: Event, newValue: number | number[]) => {
-        if (typeof newValue === 'number') {
-          setValue(newValue);
-        }
-      };
-
-      function valuetext(value: number) {
-        return `${value}°C`;
-      }
 
 
     
 
     const onClickBack = () => {
-      push('./')
+      push('/')
     }
 
-    const onSubmit: SubmitHandler<any> = (data) => {
+    const onSubmit: SubmitHandler<Step2> = (data) => {
         console.log(data)
-        //dispatch({type: "UPDATE_DETAILS", payload: data})
+        dispatch(updateDetails(data))
+        push('/step3')
     };
     return (
-             <Box sx={{ flexGrow: 1 }}>    
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            <img style={{height: '40px', width: '50px'}} src="https://res.cloudinary.com/joinditto-in/image/upload/v1647523910/ditto_log_iqxxha.png" alt='logo' />
-          </Typography>
-          <Button style={{color: 'white'}}><Link to="/logout" style={{color: 'white', textDecoration: 'none', transform: 'scale(1.0)'}}>LOGOUT</Link></Button>
-        </Toolbar>
-      </AppBar>
+    <Box sx={{ flexGrow: 1 }}> 
+      <Navbar />   
       <Container style={{minHeight: '100vh', backgroundColor: 'white', textAlign: 'center'}}>
             <p>
                 Welcome Home {auth.currentUser?.email}<br />
             </p>
             <Stepper />
-      
-      
       <br/>
       <Box  sx={{ mt: 1 }} >
       <form onSubmit={handleSubmit(onSubmit)} >
       <CustomDateCom  name="dob" type='' label='Date of Birth' control={control}  />
-      <ControllerTexFieldComp name="phoneNumber" type="text" label="Phone Number"
-                    control={control}  />
-          <FormLabel id="demo-radio-buttons-group-label">Gender</FormLabel>
-          <CustomRadioCom name="gender" label='Gender' control={control} type="radio" />
-<label htmlFor="customRange2" className="form-label label">Annual Income (LPA) : </label>
-      <CustomSlider name="annualIncome" label='Annual Income' type="slider" control={control} />
+      <ControllerTexFieldComp name="phoneNumber" type="text" label="Phone Number" control={control}  />
       
+      <CustomRadioCom name="gender" label='Gender' control={control} type="radio" />
+      <br/>
+      <br/>
+      <div>
+      <FormLabel htmlFor="customRange2" className="form-label label">Annual Income (LPA) : </FormLabel>
+      <CustomSlider name="annualIncome" label='Annual Income' type="slider" control={control} />
+      </div>
       <div>
       <Button
                 type="submit"
@@ -108,20 +93,21 @@ const StepTwoPage: React.FunctionComponent<IPageProps> = props => {
               >
                 Next
         </Button>
+        <br/> 
+        <br/>
         <Button
                 type="button"
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
-                onChange={onClickBack}
+                onClick={onClickBack}
               >
                 Back
               </Button>
       </div>
     </form>
     </Box>
-    </Container>
-        
+    </Container> 
     </Box>
     );
 }                              

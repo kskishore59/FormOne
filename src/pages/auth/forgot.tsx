@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ErrorText from '../../components/ErrorText';
+import ErrorText from '../../components/errorText';
 import { auth } from '../../config/firebase';
 import logging from '../../config/logging';
 import IPageProps from '../../interfaces/page';

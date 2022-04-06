@@ -14,7 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { auth } from '../../config/firebase';
 import logging from '../../config/logging';
-import { ControllerTexFieldComp } from '../../CustomComponents/ControllerComp';
+import { ControllerTexFieldComp } from '../../customComponents/TextFieldController';
 
 const theme = createTheme();
 
@@ -73,7 +73,7 @@ export default function SignIn() {
           </Typography>
           <Box  sx={{ mt: 1 }}>
               <form onSubmit={handleSubmit(onSubmit)}>
-                <ControllerTexFieldComp name="email" type="email" label="Email Address"
+                <ControllerTexFieldComp name="email" type="email" label="Email Address" autoFocus={true}
                     control={control}  />
                 <ControllerTexFieldComp name="password" type="password" label="Password"
                     control={control}  />
@@ -86,11 +86,13 @@ export default function SignIn() {
                 Sign In
               </Button>
         </form>
-        <Link to="/register">
+        <p>{error}</p>
+        <Link to="/register" style={{fontFamily: 'sans-serif', fontSize: '0.8rem' }}>
           Don't have an account? Register Here
         </Link>
         <br/>
-        <Link to="/forgot">
+        <br/>
+        <Link to="/forgot" style={{fontFamily: 'sans-serif', fontSize: '0.8rem'}}>
           Forgot Password? Reset Here
         </Link>
           </Box>

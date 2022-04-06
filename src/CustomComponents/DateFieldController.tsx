@@ -47,14 +47,16 @@ export  const CustomDateCom: FC<TextFieldProps> = ({
                     render={({field: {onChange, value}, fieldState}) => (
                         <LocalizationProvider dateAdapter={DateAdapter}>
                     <DesktopDatePicker
-
+                        views={['year', 'month', 'day']}
                         label={label}
                         inputFormat="MM/dd/yyyy"
                         value={value}
                         onChange={(newValue: Date | null) => {
                             onChange(newValue)
                         }}
-                        renderInput={(params) => <TextField autoFocus fullWidth {...params} />}
+                        renderInput={(params) => <TextField autoFocus fullWidth {...params} helperText={
+                            fieldState.error ? fieldState.error.message : ''
+                          } />}
                       />
                       </LocalizationProvider>)}
             />)

@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, useEffect} from 'react';
 import { auth } from '../../config/firebase';
 import logging from '../../config/logging';
 import { useNavigate } from 'react-router-dom';
@@ -12,12 +12,22 @@ const PrivateRoute: FC<PropType> = ({ component: Component }) => {
     if (!auth.currentUser)
     {
         logging.warn('No user detected, redirecting');
+       
+    }
+    useEffect(() => {
+        if (!auth.currentUser)
+    {
+        logging.warn('No user detected, redirecting');
         navigate('/login')
     }
+    })
 
     return (
         <Component />
     );
+        
+
+   
 }
 
 export default PrivateRoute;

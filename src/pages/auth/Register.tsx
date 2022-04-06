@@ -9,7 +9,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { auth } from '../../config/firebase';
 import logging from '../../config/logging';
-import { ControllerTexFieldComp } from '../../CustomComponents/ControllerComp';
+import { ControllerTexFieldComp } from '../../customComponents/TextFieldController';
 import IPageProps from '../../interfaces/page';
 
 const RegisterPage: React.FunctionComponent<IPageProps> = props => {
@@ -97,7 +97,7 @@ const RegisterPage: React.FunctionComponent<IPageProps> = props => {
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
                 >
-                  Sign In
+                  Register
                 </Button>
           </form>
           {error? <Alert severity="error">{error}</Alert> : ''}
