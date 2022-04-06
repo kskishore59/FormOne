@@ -1,14 +1,14 @@
-import React from 'react';
+import React, {FC} from 'react';
 import { auth } from '../../config/firebase';
 import logging from '../../config/logging';
 import { useNavigate } from 'react-router-dom';
 
-export interface IAuthRouteProps { }
+export interface PropType {
+    component: React.FC;
+}
 
-const AuthRoute: React.FunctionComponent<IAuthRouteProps> = props => {
+const PrivateRoute: FC<PropType> = ({ component: Component }) => {
     const navigate = useNavigate()
-    const { children } = props;
-
     if (!auth.currentUser)
     {
         logging.warn('No user detected, redirecting');
@@ -16,8 +16,25 @@ const AuthRoute: React.FunctionComponent<IAuthRouteProps> = props => {
     }
 
     return (
-        <div>{children}</div>
+        <Component />
     );
 }
 
-export default AuthRoute;
+export default PrivateRoute;
+
+/*import { FC } from 'react';
+import { useAppSelector } from 'app/hooks';
+import { Navigate } from 'react-router-dom';
+
+interface PropType {
+    component: React.FC;
+}
+
+const PrivateRoute: FC<PropType> = ({ element: Component }) => {
+    const { isAuthenticated } = useAppSelector(state => state.auth);
+
+    if (isAuthenticated) return <Component />;
+    return <Navigate to='/login' />;
+};
+
+export default PrivateRoute;*/
