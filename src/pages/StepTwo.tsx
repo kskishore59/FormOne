@@ -1,30 +1,31 @@
 import React, { useEffect } from 'react';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { Box, FormLabel } from '@mui/material';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
-import { Box, FormControl, FormLabel } from '@mui/material';
-
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import * as Yup from 'yup';
+
+
 import '../components/styles/styles.css';
 import { auth } from '../config/firebase';
-import { ControllerTexFieldComp } from '../customComponents/TextFieldController';
+import { CustomSlider } from '../customComponents/CustomSlider';
 import { CustomDateCom } from '../customComponents/DateFieldController';
 import { CustomRadioCom } from '../customComponents/RadioController';
-import { CustomSlider } from '../customComponents/CustomSlider';
+import { ControllerTexFieldComp } from '../customComponents/TextFieldController';
 import IPageProps from '../interfaces/page';
-import { Step2, updateDetails, UserDetails } from '../store/rootSlice';
+import { Step2, updateDetails } from '../store/rootSlice';
 import { AppDispatch, RootState } from '../store/store';
-import { Stepper } from './Stepper';
-import * as Yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
 import Navbar from './Navbar';
+import { Stepper } from './Stepper';
+
 
 
 
 const StepTwoPage: React.FunctionComponent<IPageProps> = props => {
     const dispatch: AppDispatch = useDispatch();
-    const [value, setValue] = React.useState<number>(10);
     const details = useSelector((state: RootState) => state.userForm.yourDetails)
     const {firstName, lastName,dob, gender, phoneNumber, annualIncome} = details
     const validationSchema = Yup.object().shape({
@@ -48,11 +49,6 @@ const StepTwoPage: React.FunctionComponent<IPageProps> = props => {
           push('/')
         }
       })
-
-
-
-
-    
 
     const onClickBack = () => {
       push('/')
@@ -113,9 +109,3 @@ const StepTwoPage: React.FunctionComponent<IPageProps> = props => {
 }                              
 
 export default StepTwoPage;
-
-/*<div className='list-card'>
-        <p>Details Filled</p>
-        {firstName !== '' ?  (<p>First Name : {firstName}</p>) : ''}
-        {lastName !== '' ?  (<p>Last Name : {lastName}</p>) : ''}
-      </div> */

@@ -1,16 +1,13 @@
-import { yupResolver } from '@hookform/resolvers/yup';
-import MenuIcon from '@mui/icons-material/Menu';
-import { Box, Container } from '@mui/material';
-import AppBar from '@mui/material/AppBar';
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
 import React, { useEffect } from 'react';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { Box, Container } from '@mui/material';
+import Button from '@mui/material/Button';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
+
+
 import '../components/styles/styles.css';
 import { auth } from '../config/firebase';
 import { ControllerTexFieldComp } from '../customComponents/TextFieldController';
@@ -23,10 +20,9 @@ import { Stepper } from './Stepper';
 
 
 const StepThree: React.FunctionComponent<IPageProps> = props => {
-    const location = useLocation()
     const dispatch: AppDispatch = useDispatch();
     const details = useSelector((state: RootState) => state.userForm.yourDetails)
-    const {firstName, lastName, gender, phoneNumber, annualIncome, dob,doorNo, street, zipCode} = details
+    const { gender, phoneNumber, annualIncome, dob,doorNo, street, zipCode} = details
     const validationSchema = Yup.object().shape({
       doorNo: Yup.number()
           .required('Door No. is required').min(2),

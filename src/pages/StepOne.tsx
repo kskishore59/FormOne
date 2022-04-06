@@ -1,27 +1,23 @@
 import React from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
-import MenuIcon from '@mui/icons-material/Menu';
 import { Box } from '@mui/material';
-import AppBar from '@mui/material/AppBar';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
-import IconButton from '@mui/material/IconButton';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-//import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
+
+
 import '../components/styles/styles.css';
 import { auth } from '../config/firebase';
 import { ControllerTexFieldComp } from '../customComponents/TextFieldController';
 import IPageProps from '../interfaces/page';
-import { updateDetails, Step1 } from '../store/rootSlice';
+import { Step1, updateDetails } from '../store/rootSlice';
 import { AppDispatch, RootState } from '../store/store';
-
 import { Stepper } from './Stepper';
 import Navbar from './Navbar';
+
 
 const HomePage: React.FunctionComponent<IPageProps> = props => {
     const dispatch: AppDispatch = useDispatch();

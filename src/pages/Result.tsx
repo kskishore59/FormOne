@@ -1,21 +1,18 @@
-import MenuIcon from '@mui/icons-material/Menu';
 import { Box, Container } from '@mui/material';
-import AppBar from '@mui/material/AppBar';
 import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
+
 import '../components/styles/styles.css';
 import { auth } from '../config/firebase';
 import IPageProps from '../interfaces/page';
 import { reset } from '../store/rootSlice';
 import { AppDispatch, RootState } from '../store/store';
+import Navbar from './Navbar';
 import { Stepper } from './Stepper';
 
 const ResultPage: React.FunctionComponent<IPageProps> = props => {
-    const location = useLocation();
     const dispatch: AppDispatch = useDispatch();
     const push = useNavigate()
 
@@ -28,23 +25,7 @@ const ResultPage: React.FunctionComponent<IPageProps> = props => {
     }
     return(
         <>
-        <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            <img style={{height: '40px', width: '50px'}} src="https://res.cloudinary.com/joinditto-in/image/upload/v1647523910/ditto_log_iqxxha.png" alt='logo' />
-          </Typography>
-          <Button style={{color: 'white'}}><Link to="/logout" style={{color: 'white', textDecoration: 'none', transform: 'scale(1.0)'}}>LOGOUT</Link></Button>
-        </Toolbar>
-      </AppBar>
+        <Navbar />
       <Container style={{minHeight: '100vh', textAlign: 'center'}}>
             <p>
                 Welcome Home {auth.currentUser?.email}<br />
@@ -61,6 +42,9 @@ const ResultPage: React.FunctionComponent<IPageProps> = props => {
            <li className='list'>Gender: {gender}</li>
            <li className='list'>Phone Number: {phoneNumber}</li>
            <li className='list'>Annual Income: {annualIncome} LPA</li>
+           <li className='list'>Door No: {doorNo}</li>
+           <li className='list'>Street: {street}</li>
+           <li className='list'>Zip Code: {zipCode}</li>
            <Button type='button'
                   fullWidth
                   variant="contained"
