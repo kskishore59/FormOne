@@ -21,7 +21,7 @@ import Navbar from './Navbar';
 
 const HomePage: React.FunctionComponent<IPageProps> = props => {
     const dispatch: AppDispatch = useDispatch();
-    const details = useSelector((state: RootState) => state.userForm.yourDetails)
+    const details = useSelector((state: RootState) => state.yourDetails)
     const {firstName, lastName} = details;
     const validationSchema = Yup.object().shape({
       firstName: Yup.string()

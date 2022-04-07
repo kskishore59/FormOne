@@ -21,7 +21,7 @@ import { Stepper } from './Stepper';
 
 const StepThree: React.FunctionComponent<IPageProps> = props => {
     const dispatch: AppDispatch = useDispatch();
-    const details = useSelector((state: RootState) => state.userForm.yourDetails)
+    const details = useSelector((state: RootState) => state.yourDetails)
     const { gender, phoneNumber, annualIncome, dob,doorNo, street, zipCode} = details
     const validationSchema = Yup.object().shape({
       doorNo: Yup.number()

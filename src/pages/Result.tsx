@@ -16,7 +16,7 @@ const ResultPage: React.FunctionComponent<IPageProps> = props => {
     const dispatch: AppDispatch = useDispatch();
     const push = useNavigate()
 
-    const details = useSelector((state: RootState) => state.userForm.yourDetails)
+    const details = useSelector((state: RootState) => state.yourDetails)
     const {firstName, lastName, dob, gender, phoneNumber, annualIncome, doorNo, street, zipCode} = details;
     
     const handleReset = () => {
