@@ -8,8 +8,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 
-
-import '../components/styles/styles.css';
 import { auth } from '../config/firebase';
 import { ControllerTexFieldComp } from '../customComponents/TextFieldController';
 import IPageProps from '../interfaces/page';
