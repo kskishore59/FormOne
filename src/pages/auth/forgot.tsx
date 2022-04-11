@@ -55,6 +55,7 @@ const ForgotPasswordPage: React.FunctionComponent<IPageProps> = props => {
                     <Button variant="contained" endIcon={<SendIcon />}
                         onClick={() => resetPasswordRequest()}>Send Reset Link</Button>
                     <ErrorText error={error} />
+                    <p>{sending ? 'Email has been sent for reset password' : ''}</p>
                     <small>
                         <p style={{color: 'black'}}>Click Here <Link to='/login'>Login Here</Link></p>
                     </small>

@@ -8,12 +8,17 @@ import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 
 
+<<<<<<< Updated upstream
 import '../components/Styles/styles.css';
 import { auth } from '../config/firebase';
+=======
+import { auth } from '../config/firebase';
+import { ControllerTexFieldComp } from '../formFields/TextFieldController';
+>>>>>>> Stashed changes
 import IPageProps from '../interfaces/page';
-import { Step3, updateDetails } from '../store/rootSlice';
+import { Step3, steps, updateDetails } from '../store/rootSlice';
 import { AppDispatch, RootState } from '../store/store';
-import Navbar from './Navbar';
+import Navbar from '../routes/Navbar';
 import { Stepper } from './Stepper';
 import { ControllerTexFieldComp } from '../customComponents/TextFieldController';
 
@@ -21,16 +26,18 @@ import { ControllerTexFieldComp } from '../customComponents/TextFieldController'
 
 const StepThree: React.FunctionComponent<IPageProps> = props => {
     const dispatch: AppDispatch = useDispatch();
-    const details = useSelector((state: RootState) => state.yourDetails)
-    const { gender, phoneNumber, annualIncome, dob,doorNo, street, zipCode} = details
+    const details = useSelector((state: RootState) => state)
+    const { gender, phoneNumber, annualIncome, dob,doorNo, street, zipCode} = details.yourDetails
+    const{email} = details.token;
     const validationSchema = Yup.object().shape({
       doorNo: Yup.number()
-          .required('Door No. is required').min(2),
+          .required('Door No. is required').min(2).typeError('Please enter only Numbers from 0-9'),
       street: Yup.string()
           .required('Street Name is required'),
       zipCode: Yup.number()
         .required('Zip Code is required')
-        .min(6)
+        .min(6, 'Zip code must be 6 characters').max(6)
+        .typeError('Please enter only Numbers from 0-9')
   });
  
     const { handleSubmit, control } = useForm<Step3>({
@@ -54,19 +61,21 @@ const StepThree: React.FunctionComponent<IPageProps> = props => {
     const onSubmit: SubmitHandler<Step3> = (data) => {
         console.log(data)
         dispatch(updateDetails(data))
+        dispatch(steps({stepThree: true}))
         console.log(details)
         push('/result')
     };
     return (
     <Box sx={{ flexGrow: 1 }}>     
       <Navbar />
-      <Container style={{minHeight: '100vh', textAlign: 'center'}}>
+      <Container style={{minHeight: '100vh', backgroundColor: 'white', display: 'flex', flexDirection: 'column',
+        alignItems: 'center',
+    }}>
             <p>
-                Welcome Home {auth.currentUser?.email}<br />
+                Welcome Home {email}<br />
             </p>
             <Stepper />
-      <br/>
-      <Box  sx={{ mt: 1 }}>
+      <Box  sx={{ mt: 2, width: '50%'  }}>
       <form onSubmit={handleSubmit(onSubmit)} >
       
       <ControllerTexFieldComp
@@ -95,17 +104,17 @@ const StepThree: React.FunctionComponent<IPageProps> = props => {
                   fullWidth
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
+                  style={{marginTop: 10, marginBottom: 3}}
                 >
                   Next
                 </Button>
-                <br/>
-                <br/>
         <Button
         fullWidth
         variant="contained"
         color="primary"
         type='button'
         onClick={onClickBack}
+        style={{marginTop: 10, marginBottom: 10}}
       >Back</Button>
     </form>
     </Box>

@@ -51,6 +51,7 @@ export  const CustomDateCom: FC<TextFieldProps> = ({
                         label={label}
                         inputFormat="MM/dd/yyyy"
                         value={value}
+                        maxDate={new Date('2022-04-08')}
                         onChange={(newValue: Date | null) => {
                             onChange(newValue)
                         }}

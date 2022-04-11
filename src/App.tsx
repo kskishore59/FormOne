@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes  } from 'react-router-dom';
-import AuthRoute from './components/authRoute';
+import AuthRoute from './routes/authRoute';
 import routes from './config/routes';
 import { auth } from './config/firebase';
 import logging from './config/logging';
@@ -9,7 +9,7 @@ import { Box, CircularProgress } from '@mui/material';
 import RegisterPage from './pages/auth/Register';
 import ForgotPasswordPage from './pages/auth/forgot';
 import HomePage from './pages/StepOne';
-import PrivateRoute from './components/authRoute';
+import PrivateRoute from './routes/authRoute';
 import StepTwoPage from './pages/StepTwo';
 import StepThree from './pages/StepThree';
 import LogoutPage from './pages/auth/Logout';

@@ -2,14 +2,18 @@ import { Box, Container } from '@mui/material';
 import Button from '@mui/material/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import {List, ListItem} from '@mui/material'
 
 
+<<<<<<< Updated upstream
 import '../components/Styles/styles.css';
+=======
+>>>>>>> Stashed changes
 import { auth } from '../config/firebase';
 import IPageProps from '../interfaces/page';
-import { reset } from '../store/rootSlice';
+import { reset, steps } from '../store/rootSlice';
 import { AppDispatch, RootState } from '../store/store';
-import Navbar from './Navbar';
+import Navbar from '../routes/Navbar';
 import { Stepper } from './Stepper';
 
 const ResultPage: React.FunctionComponent<IPageProps> = props => {
@@ -21,12 +25,15 @@ const ResultPage: React.FunctionComponent<IPageProps> = props => {
     
     const handleReset = () => {
       dispatch(reset())
+      dispatch(steps({stepOne: false, stepTwo: false, stepThree: false}))
       push('/')
     }
     return(
         <>
         <Navbar />
-      <Container style={{minHeight: '100vh', textAlign: 'center'}}>
+      <Container style={{minHeight: '100vh', backgroundColor: 'white', display: 'flex', flexDirection: 'column',
+        alignItems: 'center',
+    }}>
             <p>
                 Welcome Home {auth.currentUser?.email}<br />
             </p>
@@ -35,21 +42,21 @@ const ResultPage: React.FunctionComponent<IPageProps> = props => {
       <br/>
       <Box  sx={{ mt: 1 }} width={'100%'} style={{display: 'flex', justifyContent: 'Center'}}>
       <div>
-      <ul  style={{textAlign: 'left'}}>
-           <li className='list'>First Name: {firstName}</li>
-           <li className='list'>Last Name: {lastName}</li>
-           <li className='list'>DOB: {dob}</li>
-           <li className='list'>Gender: {gender}</li>
-           <li className='list'>Phone Number: {phoneNumber}</li>
-           <li className='list'>Annual Income: {annualIncome} LPA</li>
-           <li className='list'>Door No: {doorNo}</li>
-           <li className='list'>Street: {street}</li>
-           <li className='list'>Zip Code: {zipCode}</li>
+      <List  style={{textAlign: 'left'}}>
+           <ListItem className='list'>First Name: {firstName}</ListItem>
+           <ListItem className='list'>Last Name: {lastName}</ListItem>
+           <ListItem className='list'>DOB: {dob}</ListItem>
+           <ListItem className='list'>Gender: {gender}</ListItem>
+           <ListItem className='list'>Phone Number: {phoneNumber}</ListItem>
+           <ListItem className='list'>Annual Income: {annualIncome} LPA</ListItem>
+           <ListItem className='list'>Door No: {doorNo}</ListItem>
+           <ListItem className='list'>Street: {street}</ListItem>
+           <ListItem className='list'>Zip Code: {zipCode}</ListItem>
            <Button type='button'
                   fullWidth
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }} onClick={handleReset} >Reset</Button>
-        </ul>
+        </List>
         </div>
         </Box>
     </Container>

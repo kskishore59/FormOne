@@ -1,5 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
+import { LoadingButton } from '@mui/lab';
 import { Alert, Avatar, Box, Button, Container, Typography } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -9,11 +10,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { auth } from '../../config/firebase';
 import logging from '../../config/logging';
-import { ControllerTexFieldComp } from '../../customComponents/TextFieldController';
+import { ControllerTexFieldComp } from '../../formFields/TextFieldController';
 import IPageProps from '../../interfaces/page';
 
 const RegisterPage: React.FunctionComponent<IPageProps> = props => {
     const [error, setError] = useState<string>()
+    const [loading, setLoading] = useState<boolean>(false)
+
 
     const theme = createTheme();
 
@@ -38,6 +41,7 @@ const RegisterPage: React.FunctionComponent<IPageProps> = props => {
     const {  handleSubmit, control } = useForm(formOptions);
 
     const onSubmit = (data: any) => {
+      setLoading(true)
         const {email, password} = data
         auth.createUserWithEmailAndPassword(email, password)
         .then(result => {
@@ -60,6 +64,9 @@ const RegisterPage: React.FunctionComponent<IPageProps> = props => {
                 setError('Unable to register, please try again')
             }
 
+        })
+        .finally(() => {
+          setLoading(false)
         })
     }
 
@@ -91,14 +98,22 @@ const RegisterPage: React.FunctionComponent<IPageProps> = props => {
                       control={control}  />
                   <ControllerTexFieldComp name="confirmPassword" type="text" label="Password"
                       control={control}  />
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
-                >
-                  Register
-                </Button>
+                {loading ? ( <LoadingButton
+          color="primary"
+          loading={loading}
+          loadingPosition="end"
+          variant="contained"
+          fullWidth
+        >
+         Register
+        </LoadingButton>) : (<Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Register
+              </Button>)}
           </form>
           {error? <Alert severity="error">{error}</Alert> : ''}
           <Link to="/login">

@@ -8,19 +8,28 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 
+<<<<<<< Updated upstream
 import { auth } from '../config/firebase';
+=======
+import { ControllerTexFieldComp } from '../formFields/TextFieldController';
+>>>>>>> Stashed changes
 import IPageProps from '../interfaces/page';
-import { Step1, updateDetails } from '../store/rootSlice';
+import { Step1, steps, updateDetails } from '../store/rootSlice';
 import { AppDispatch, RootState } from '../store/store';
 import { Stepper } from './Stepper';
+<<<<<<< Updated upstream
 import Navbar from './Navbar';
 import { ControllerTexFieldComp } from '../customComponents/TextFieldController';
+=======
+import Navbar from '../routes/Navbar';
+>>>>>>> Stashed changes
 
 
 const HomePage: React.FunctionComponent<IPageProps> = props => {
     const dispatch: AppDispatch = useDispatch();
-    const details = useSelector((state: RootState) => state.yourDetails)
-    const {firstName, lastName} = details;
+    const details = useSelector((state: RootState) => state)
+    const {firstName, lastName} = details.yourDetails;
+    const{email} = details.token;
     const validationSchema = Yup.object().shape({
       firstName: Yup.string()
           .required('First Name is required'),
@@ -38,33 +47,34 @@ const HomePage: React.FunctionComponent<IPageProps> = props => {
     const onSubmit: SubmitHandler<Step1> = (data) => {
         console.log(data)
         dispatch(updateDetails(data))
+        dispatch(steps({stepOne: true}))
         console.log(details)
         history('/step2')
     };
     return (
              <Box sx={{ flexGrow: 1 }}>     
             <Navbar />
-      <Container style={{minHeight: '100vh', backgroundColor: 'white', textAlign: 'center'}}>
+      <Container style={{minHeight: '100vh', backgroundColor: 'white', display: 'flex', flexDirection: 'column',
+        alignItems: 'center',
+    }}>
             <p>
-                Welcome Home {auth.currentUser?.email}<br />
+                Welcome Home {email}<br />
             </p>
             <Stepper />
            
-      <br/>
-      <br/>
-    <Box  sx={{ mt: 1 }}>
+    <Box  sx={{ mt: 5, width: '50%' }}>
                 <form onSubmit={handleSubmit(onSubmit)}>
                   <ControllerTexFieldComp name="firstName" value={firstName} autoFocus={true} type="text" label="First Name"
                       control={control}  />
                   <ControllerTexFieldComp name="lastName" value={lastName} type="text" label="Last Name"
                       control={control}  />
-                      <br/>
-                      <br/>
+                      
                 <Button
                   type="submit"
                   fullWidth
                   variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
+                  sx={{ mb: 2 }}
+                  style={{marginTop: '20px'}}
                 >
                   Next
                 </Button>

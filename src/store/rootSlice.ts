@@ -10,6 +10,16 @@ export interface UserDetails {
         panNumber: string,
         doorNo: number | undefined, street:string, zipCode: number | undefined,
         phoneNumber: string,
+    },
+    token: {
+      email: string,
+      refreshToken: string,
+      accessToken: string,
+    },
+    completedSteps: {
+      stepOne: boolean,
+      stepTwo: Boolean,
+      stepThree: boolean,
     }
 }
 
@@ -38,12 +48,21 @@ export const initialState = {
         firstName: '',
         lastName: '',
         dob: '',
-        gender: 'male',
+        gender: '',
         annualIncome: 0,
         panNumber: '',
         doorNo: undefined, street:'', zipCode: undefined,
         phoneNumber: '',
-        
+    },
+    token: {
+      email: '',
+      refreshToken: '',
+      accessToken: '',
+    },
+    completedSteps: {
+      stepOne: false,
+      stepTwo: false,
+      stepThree: false,
     }
 }
 
@@ -59,11 +78,24 @@ export const rootSlice = createSlice({
             }
           },
       reset: (state: UserDetails) => {
-        state.yourDetails = initialState.yourDetails
+        state.yourDetails = initialState.yourDetails;
+        state.completedSteps = initialState.completedSteps;
       },
+      loginDetails: (state:UserDetails, action: PayloadAction<any>) => {
+          state.token = {
+            ...state.token,
+            ...action.payload,
+          }
+      },
+      steps: (state:UserDetails, action: PayloadAction<any>) => {
+        state.completedSteps = {
+          ...state.completedSteps,
+          ...action.payload,
+        }
+      }
     }
   })
 
-  export const { updateDetails, reset } = rootSlice.actions
+  export const { updateDetails, reset, loginDetails, steps } = rootSlice.actions
 
   export default rootSlice.reducer

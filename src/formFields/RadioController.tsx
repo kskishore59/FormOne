@@ -1,5 +1,6 @@
-import { FormControlLabel, RadioGroup, Radio, FormControl, FormLabel } from '@mui/material';
 import { FC } from 'react';
+import { FormControlLabel, Radio, RadioGroup } from '@mui/material';
+import Box from '@mui/material/Box';
 import { Controller } from 'react-hook-form';
 
 export interface TextFieldProps {
@@ -17,6 +18,7 @@ export interface TextFieldProps {
     multiline?: boolean;
     rows?: number;
     type: string;
+    gender?: string;
     control: any;
     maxLength?: number;
     onBlur?: () => void;
@@ -30,6 +32,7 @@ export  const CustomRadioCom: FC<TextFieldProps> = ({
     label,
     control,
     type,
+    gender,
     onBlur,
     onChange
   }) => {
@@ -40,20 +43,21 @@ export  const CustomRadioCom: FC<TextFieldProps> = ({
                     defaultValue=''
                     control={control}
                     render={({field: {onChange}, fieldState}) => (
-                    <FormControl>
-                      <FormLabel id="demo-radio-buttons-group-label">Gender</FormLabel>
+                    <Box >
                       <RadioGroup
                         onChange={onChange}
                         aria-labelledby="demo-radio-buttons-group-label"
                         id='gender'
                         row
-                        defaultValue={'male'}
+                        defaultValue={gender}
+                        sx={{ml: 1, mt: 1, mb:2}}
                       >
-                        <FormControlLabel   value="female" control={<Radio />} label="Female" />
-                        <FormControlLabel    value="male" control={<Radio />} label="Male" />
+                        <FormControlLabel   value="female" control={<Radio  />} label="Female" />
+                        <FormControlLabel    value="male" control={<Radio  />} label="Male" />
                         <FormControlLabel   value="other" control={<Radio />} label="Other" />
                   </RadioGroup>
-                    </FormControl>
+                  {fieldState.error ? <p style={{color: '#d32f2f',fontFamily: '"Roboto","Helvetica","Arial",sans-serif', fontSize: '12px', marginLeft: '15px'}}>{fieldState.error.message}</p> : ''}
+                    </Box>
                     )}
             />)
 }

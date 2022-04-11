@@ -10,7 +10,6 @@ const persistConfig = {
     storage
 };
 
-
 const persistedReducer = persistReducer(persistConfig, rootSlice);
 
 export const store = configureStore({
