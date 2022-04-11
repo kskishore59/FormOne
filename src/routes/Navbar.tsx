@@ -10,13 +10,20 @@ import { useNavigate } from 'react-router-dom';
 import { Popover, Box } from '@mui/material';
 import { auth } from '../config/firebase';
 import logging from '../config/logging';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../store/store';
+import { logoutOption, reset } from '../store/rootSlice';
 
 type Props = {}
 
 const Navbar = (props: Props) => {
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
+  const dispatch: AppDispatch = useDispatch();;
   const history = useNavigate();
     const logout = () => {
+      dispatch(reset())
+      dispatch(logoutOption())
+      console.log('logged out')
         auth.signOut()
         .then(() => history('/login'))
         .catch(error => logging.error(error))

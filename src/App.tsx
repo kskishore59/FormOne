@@ -12,7 +12,6 @@ import HomePage from './pages/StepOne';
 import PrivateRoute from './routes/authRoute';
 import StepTwoPage from './pages/StepTwo';
 import StepThree from './pages/StepThree';
-import LogoutPage from './pages/auth/Logout';
 import ResultPage from './pages/Result';
 
 
@@ -48,7 +47,6 @@ const App: React.FunctionComponent<IApplicationProps> = props => {
               <Route path="/step2" element={<PrivateRoute component={StepTwoPage}/>} />
               <Route path="/step3" element={<PrivateRoute component={StepThree}/>} />
               <Route path="/result" element={<PrivateRoute component={ResultPage} />} />
-              <Route path="/logout" element={<PrivateRoute component={LogoutPage} />} />
             </Routes>
             </BrowserRouter>
         </div>

@@ -3,10 +3,11 @@ import ErrorText from '../../components/errorText';
 import { auth } from '../../config/firebase';
 import logging from '../../config/logging';
 import IPageProps from '../../interfaces/page';
-import { Button, TextField, Box } from '@mui/material';
+import { Button, TextField, Box, Typography, Avatar } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import { Link } from 'react-router-dom';
 import Container from '@mui/material/Container';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
 const ForgotPasswordPage: React.FunctionComponent<IPageProps> = props => {
     const [sending, setSending] = useState<boolean>(false);
@@ -45,8 +46,13 @@ const ForgotPasswordPage: React.FunctionComponent<IPageProps> = props => {
                 <Link to="/login">Click here to login</Link></>)
             :
                 <>
-                    <h1>Reset Password</h1>
-                    <TextField fullWidth style={{marginBottom: '0.5rem'}} label="Email Address"  type="email"
+                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <LockOutlinedIcon />
+          </Avatar>
+                    <Typography component="h1" variant="h5" color="primary">
+                Reset Password
+          </Typography>
+                    <TextField sx={{mt: 2,}} fullWidth style={{marginBottom: '0.8rem'}} label="Email Address"  type="email"
                 name='email'
                 id='email'
                 placeholder='Email Address'
@@ -57,7 +63,7 @@ const ForgotPasswordPage: React.FunctionComponent<IPageProps> = props => {
                     <ErrorText error={error} />
                     <p>{sending ? 'Email has been sent for reset password' : ''}</p>
                     <small>
-                        <p style={{color: 'black'}}>Click Here <Link to='/login'>Login Here</Link></p>
+                        <p style={{fontFamily: 'sans-serif', fontSize: '0.8rem'}}>Click Here <Link to='/login'>Login Here</Link></p>
                     </small>
                 </>
                 

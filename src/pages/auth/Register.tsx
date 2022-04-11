@@ -87,9 +87,9 @@ const RegisterPage: React.FunctionComponent<IPageProps> = props => {
             <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
               <AssignmentIndIcon />
             </Avatar>
-            <Typography component="h1" variant="h5" color={'primary'}>
+            <Typography component="h1" variant="h5" color="primary">
               Register
-            </Typography>
+          </Typography>
             <Box  sx={{ mt: 1 }}>
                 <form onSubmit={handleSubmit(onSubmit)}>
                   <ControllerTexFieldComp name="email" type="email" label="Email Address"
