@@ -8,19 +8,13 @@ import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 
 
-<<<<<<< Updated upstream
-import '../components/Styles/styles.css';
-import { auth } from '../config/firebase';
-=======
 import { auth } from '../config/firebase';
 import { ControllerTexFieldComp } from '../formFields/TextFieldController';
->>>>>>> Stashed changes
 import IPageProps from '../interfaces/page';
 import { Step3, steps, updateDetails } from '../store/rootSlice';
 import { AppDispatch, RootState } from '../store/store';
 import Navbar from '../routes/Navbar';
 import { Stepper } from './Stepper';
-import { ControllerTexFieldComp } from '../customComponents/TextFieldController';
 
 
 
@@ -36,7 +30,7 @@ const StepThree: React.FunctionComponent<IPageProps> = props => {
           .required('Street Name is required'),
       zipCode: Yup.number()
         .required('Zip Code is required')
-        .min(6, 'Zip code must be 6 characters').max(6)
+        .min(6, 'Zip code must be 6 characters')
         .typeError('Please enter only Numbers from 0-9')
   });
  

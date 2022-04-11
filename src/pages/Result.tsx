@@ -5,10 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import {List, ListItem} from '@mui/material'
 
 
-<<<<<<< Updated upstream
-import '../components/Styles/styles.css';
-=======
->>>>>>> Stashed changes
 import { auth } from '../config/firebase';
 import IPageProps from '../interfaces/page';
 import { reset, steps } from '../store/rootSlice';

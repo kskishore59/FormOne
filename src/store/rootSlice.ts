@@ -71,7 +71,7 @@ export const rootSlice = createSlice({
     name: 'form',
     initialState,
     reducers: {
-      updateDetails: (state:UserDetails, action: PayloadAction<Step1 | Step2 | Step3 >) => {
+      updateDetails: (state:UserDetails, action: PayloadAction<Step1 | Step2 | Step3 |any>) => {
         state.yourDetails =  {
               ...state.yourDetails,
               ...action.payload,
@@ -92,10 +92,13 @@ export const rootSlice = createSlice({
           ...state.completedSteps,
           ...action.payload,
         }
-      }
+      },
+      logoutOption: (state: UserDetails) => {
+        state.token =  initialState.token;
+    },
     }
   })
 
-  export const { updateDetails, reset, loginDetails, steps } = rootSlice.actions
+  export const { updateDetails, reset, loginDetails, steps, logoutOption } = rootSlice.actions
 
   export default rootSlice.reducer

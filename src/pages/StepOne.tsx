@@ -8,21 +8,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 
-<<<<<<< Updated upstream
-import { auth } from '../config/firebase';
-=======
-import { ControllerTexFieldComp } from '../formFields/TextFieldController';
->>>>>>> Stashed changes
 import IPageProps from '../interfaces/page';
 import { Step1, steps, updateDetails } from '../store/rootSlice';
 import { AppDispatch, RootState } from '../store/store';
 import { Stepper } from './Stepper';
-<<<<<<< Updated upstream
-import Navbar from './Navbar';
-import { ControllerTexFieldComp } from '../customComponents/TextFieldController';
-=======
 import Navbar from '../routes/Navbar';
->>>>>>> Stashed changes
+import { ControllerTexFieldComp } from '../formFields/TextFieldController';
 
 
 const HomePage: React.FunctionComponent<IPageProps> = props => {

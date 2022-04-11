@@ -5,13 +5,25 @@ import { auth } from '../../config/firebase';
 import logging from '../../config/logging';
 import { Container, Button } from '@material-ui/core';
 import { Box } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../store/store';
+import { reset, logoutOption } from '../../store/rootSlice';
 
 const LogoutPage: React.FunctionComponent<IPageProps> = props => {
+    const dispatch: AppDispatch = useDispatch();
     const history = useNavigate();
     const logout = () => {
+        dispatch(reset())
+        dispatch(logoutOption())
+        console.log('logged out')
         auth.signOut()
-        .then(() => history('/login'))
+        .then(() => {
+            history('/login')
+            
+        })
         .catch(error => logging.error(error))
+
+        
     } 
     return (
         <Container style={{minHeight: '100vh', backgroundColor: 'white', textAlign: 'center',display: 'flex',alignItems: 'center', justifyContent: 'Center', }}>
