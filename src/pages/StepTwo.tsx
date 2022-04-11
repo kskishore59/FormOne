@@ -9,17 +9,18 @@ import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 
 
-import '../components/styles/styles.css';
+import '../components/Styles/styles.css';
 import { auth } from '../config/firebase';
-import { CustomSlider } from '../customComponents/CustomSlider';
-import { CustomDateCom } from '../customComponents/DateFieldController';
-import { CustomRadioCom } from '../customComponents/RadioController';
+
 import { ControllerTexFieldComp } from '../customComponents/TextFieldController';
 import IPageProps from '../interfaces/page';
 import { Step2, updateDetails } from '../store/rootSlice';
 import { AppDispatch, RootState } from '../store/store';
 import Navbar from './Navbar';
 import { Stepper } from './Stepper';
+import { CustomDateCom } from '../customComponents/DateFieldController';
+import { CustomRadioCom } from '../customComponents/RadioController';
+import { CustomSlider } from '../customComponents/CustomSlider';
 
 
 

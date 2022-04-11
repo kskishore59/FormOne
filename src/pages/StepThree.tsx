@@ -8,14 +8,14 @@ import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 
 
-import '../components/styles/styles.css';
+import '../components/Styles/styles.css';
 import { auth } from '../config/firebase';
-import { ControllerTexFieldComp } from '../customComponents/TextFieldController';
 import IPageProps from '../interfaces/page';
 import { Step3, updateDetails } from '../store/rootSlice';
 import { AppDispatch, RootState } from '../store/store';
 import Navbar from './Navbar';
 import { Stepper } from './Stepper';
+import { ControllerTexFieldComp } from '../customComponents/TextFieldController';
 
 
 

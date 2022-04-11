@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 
-import '../components/styles/styles.css';
+import '../components/Styles/styles.css';
 import { auth } from '../config/firebase';
 import IPageProps from '../interfaces/page';
 import { reset } from '../store/rootSlice';
