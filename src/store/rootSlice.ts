@@ -11,7 +11,7 @@ export interface UserDetails {
         doorNo: number | undefined, street:string, zipCode: number | undefined,
         phoneNumber: string,
     },
-    token: {
+    auth: {
       email: string,
       refreshToken: string,
       accessToken: string,
@@ -20,6 +20,7 @@ export interface UserDetails {
       stepOne: boolean,
       stepTwo: Boolean,
       stepThree: boolean,
+      currentStep: string;
     }
 }
 
@@ -42,6 +43,19 @@ export interface Step3{
         zipCode: number,
 }
 
+export interface Auth{
+  email: string;
+  accessToken: string;
+  refreshToken: string;
+}
+
+export interface Steps{
+  stepOne?: boolean,
+  stepTwo?: boolean
+  stepThree?: boolean,
+  currentStep?: string,
+}
+
 
 export const initialState = {
     yourDetails: {
@@ -54,7 +68,7 @@ export const initialState = {
         doorNo: undefined, street:'', zipCode: undefined,
         phoneNumber: '',
     },
-    token: {
+    auth: {
       email: '',
       refreshToken: '',
       accessToken: '',
@@ -63,6 +77,7 @@ export const initialState = {
       stepOne: false,
       stepTwo: false,
       stepThree: false,
+      currentStep: '',
     }
 }
 
@@ -71,7 +86,7 @@ export const rootSlice = createSlice({
     name: 'form',
     initialState,
     reducers: {
-      updateDetails: (state:UserDetails, action: PayloadAction<Step1 | Step2 | Step3 |any>) => {
+      updateDetails: (state:UserDetails, action: PayloadAction<Steps | Step1 | Step2 | Step3 | Auth >) => {
         state.yourDetails =  {
               ...state.yourDetails,
               ...action.payload,
@@ -81,20 +96,20 @@ export const rootSlice = createSlice({
         state.yourDetails = initialState.yourDetails;
         state.completedSteps = initialState.completedSteps;
       },
-      loginDetails: (state:UserDetails, action: PayloadAction<any>) => {
-          state.token = {
-            ...state.token,
+      loginDetails: (state:UserDetails, action: PayloadAction<Auth>) => {
+          state.auth = {
+            ...state.auth,
             ...action.payload,
           }
       },
-      steps: (state:UserDetails, action: PayloadAction<any>) => {
+      steps: (state:UserDetails, action: PayloadAction<Steps>) => {
         state.completedSteps = {
           ...state.completedSteps,
           ...action.payload,
         }
       },
       logoutOption: (state: UserDetails) => {
-        state.token =  initialState.token;
+        state.auth =  initialState.auth;
     },
     }
   })

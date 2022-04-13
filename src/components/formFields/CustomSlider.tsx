@@ -1,5 +1,5 @@
 import { Slider } from '@material-ui/core';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { ChangeEvent, FC } from 'react';
 import { Controller } from 'react-hook-form';
 
@@ -44,7 +44,7 @@ export  const CustomSlider: FC<TextFieldProps> = ({
                     render={({field: {onChange, value}, fieldState}) => (
                         <>
                     <Box sx={{display: 'flex', alignItems: 'center'}}>
-                        <p style={{marginRight: '10px',backgroundColor: 'skyblue', padding: '10px'}}> 0</p>
+                        <Typography sx={{mr: 2, backgroundColor: 'skyblue', p: 1.5, width: '1rem',}} > 0</Typography>
                         <Slider
                         valueLabelDisplay="auto"
                         aria-label="Default"
@@ -57,10 +57,10 @@ export  const CustomSlider: FC<TextFieldProps> = ({
                         max={50}
                       />
 
-                      <p style={{marginLeft: '10px', backgroundColor: 'skyblue', padding: '10px'}}>50</p>
+                      <Typography sx={{ml: 2, backgroundColor: 'skyblue', p: 1.5, width: '1rem',}}>50</Typography>
                       
                       </Box>
-                      {fieldState.error ? <p style={{color: '#d32f2f',fontFamily: '"Roboto","Helvetica","Arial",sans-serif', fontSize: '12px', marginLeft: '15px'}}>{fieldState.error.message}</p> : ''}
+                      {fieldState.error ? <Typography style={{color: '#d32f2f',fontFamily: '"Roboto","Helvetica","Arial",sans-serif', fontSize: '12px', marginLeft: '15px'}}>{fieldState.error.message}</Typography> : ''}
 
                       </>)}
             />)

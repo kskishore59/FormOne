@@ -1,5 +1,4 @@
 import React, {FC, useEffect} from 'react';
-import { auth } from '../../config/firebase';
 import logging from '../../config/logging';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -11,7 +10,7 @@ export interface PropType {
 
 const PrivateRoute: FC<PropType> = ({ component: Component }) => {
     const navigate = useNavigate()
-    const details = useSelector((state: RootState) => state.token)
+    const details = useSelector((state: RootState) => state.auth)
 
     useEffect(() => {
         if (!details.refreshToken)
