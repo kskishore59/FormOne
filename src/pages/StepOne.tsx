@@ -11,7 +11,6 @@ import * as Yup from "yup";
 import IPageProps from "../interfaces/page";
 import { Step1, steps, updateDetails } from "../store/rootSlice";
 import { AppDispatch, RootState } from "../store/store";
-import { Stepper } from "../components/StepperComponent/Stepper";
 import Navbar from "./Navbar";
 import { ControllerTexFieldComp } from "../components/formFields/TextFieldController";
 import StepperComponent from "../components/StepperComponent/StepperComponent";
